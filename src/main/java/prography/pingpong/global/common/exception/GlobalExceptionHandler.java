@@ -8,6 +8,7 @@ import prography.pingpong.global.common.response.ApiResponse;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
     private static final int SERVER_ERROR_CODE = 500;
     private static final String SERVER_ERROR_MESSAGE = "에러가 발생했습니다.";
 
