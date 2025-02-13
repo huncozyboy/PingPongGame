@@ -36,7 +36,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status status = Status.WAIT;
+    private Status status;
 
     @CreatedDate
     @Column(updatable = false)
