@@ -14,4 +14,8 @@ public class ApiResponse<T> {
     public static <T> ApiResponse<T> response(int code, String message, T data) {
         return new ApiResponse<>(code, message, data);
     }
+
+    public static <T> ApiResponse<T> response(int code, String message) {
+        return new ApiResponse<>(code, message, null);
+    }
 }
