@@ -67,5 +67,7 @@ public class User {
         this.name = name;
         this.email = email;
         this.status = status;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 }
