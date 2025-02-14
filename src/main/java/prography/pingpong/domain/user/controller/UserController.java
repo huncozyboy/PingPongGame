@@ -21,8 +21,7 @@ public class UserController {
 
     @Operation(summary = "유저 전체 조회")
     @GetMapping("/users")
-    public ApiResponse<UserListResponse> getAllUsers(@RequestParam int page,
-                                                     @RequestParam int size) {
+    public ApiResponse<UserListResponse> getAllUsers(@RequestParam int page, @RequestParam int size) {
         Page<UserResponse> users = userGetService.getAllUsers(page, size);
 
         return ApiResponse.response(SUCCESS_RESPONSE.getCode(), SUCCESS_RESPONSE.getMessage(),
