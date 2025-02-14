@@ -12,8 +12,6 @@ import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
 @Entity
@@ -38,17 +36,36 @@ public class User {
     @Column(nullable = false)
     private Status status;
 
-    @CreatedDate
-    @Column(updatable = false)
+    @Column
     private LocalDateTime createdAt;
 
-    @LastModifiedDate
     @Column
     private LocalDateTime updatedAt;
 
     public enum Status {
         WAIT,
         ACTIVE,
-        NON_ACTIVE
+        NON_ACTIVE;
+
+        public static Status fromFakerId(int fakerId) {
+            if (fakerId <= 30) {
+                return ACTIVE;
+            } else if (fakerId <= 60) {
+                return WAIT;
+            } else {
+                return NON_ACTIVE;
+            }
+        }
+    }
+
+    public static User createUser(int fakerId, String name, String email) {
+        return new User(fakerId, name, email, Status.fromFakerId(fakerId));
+    }
+
+    private User(int fakerId, String name, String email, Status status) {
+        this.fakerId = fakerId;
+        this.name = name;
+        this.email = email;
+        this.status = status;
     }
 }
