@@ -11,8 +11,6 @@ import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
 @Entity
@@ -37,11 +35,10 @@ public class Room {
     @Column(nullable = false)
     private Status status;
 
-    @CreatedDate
-    @Column(updatable = false)
+    @Column
     private LocalDateTime createDate;
 
-    @LastModifiedDate
+    @Column
     private LocalDateTime updateDate;
 
     public enum RoomType {
