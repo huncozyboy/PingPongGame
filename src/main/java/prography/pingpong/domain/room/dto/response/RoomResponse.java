@@ -1,6 +1,5 @@
 package prography.pingpong.domain.room.dto.response;
 
-import java.time.LocalDateTime;
 import prography.pingpong.domain.room.entity.Room;
 
 public record RoomResponse(
@@ -8,9 +7,7 @@ public record RoomResponse(
         String title,
         int hostId,
         String roomType,
-        String status,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        String status
 ) {
     public static RoomResponse from(Room room) {
         return new RoomResponse(
@@ -18,9 +15,7 @@ public record RoomResponse(
                 room.getTitle(),
                 room.getHost(),
                 room.getRoomType().name(),
-                room.getStatus().name(),
-                room.getCreateDate(),
-                room.getUpdateDate()
+                room.getStatus().name()
         );
     }
 }
