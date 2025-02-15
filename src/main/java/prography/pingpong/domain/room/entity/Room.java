@@ -9,12 +9,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Room {
 
     @Id
@@ -49,5 +53,16 @@ public class Room {
         WAIT,
         PROGRESS,
         FINISH
+    }
+
+    public static Room create(String title, Integer host, String roomType) {
+        return Room.builder()
+                .title(title)
+                .host(host)
+                .roomType(RoomType.valueOf(roomType.toUpperCase()))
+                .status(Status.WAIT)
+                .createDate(LocalDateTime.now())
+                .updateDate(LocalDateTime.now())
+                .build();
     }
 }
