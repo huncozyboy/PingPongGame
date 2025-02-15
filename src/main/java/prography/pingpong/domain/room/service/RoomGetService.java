@@ -7,6 +7,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import prography.pingpong.domain.exception.InvalidRequestException;
+import prography.pingpong.domain.room.dto.response.RoomDetailResponse;
 import prography.pingpong.domain.room.dto.response.RoomResponse;
 import prography.pingpong.domain.room.entity.Room;
 import prography.pingpong.domain.room.repository.RoomRepository;
@@ -23,5 +25,13 @@ public class RoomGetService {
         Page<Room> rooms = roomRepository.findAll(pageable);
 
         return rooms.map(RoomResponse::from);
+    }
+
+    @Transactional
+    public RoomDetailResponse getRoomDetail(int roomId) {
+        Room room = roomRepository.findById(roomId)
+                .orElseThrow(InvalidRequestException::new);
+
+        return RoomDetailResponse.from(room);
     }
 }
