@@ -23,7 +23,6 @@ public class UserController {
     @GetMapping("/users")
     public ApiResponse<UserListResponse> getAllUsers(@RequestParam int page, @RequestParam int size) {
         Page<UserResponse> users = userGetService.getAllUsers(page, size);
-
         return ApiResponse.response(SUCCESS_RESPONSE.getCode(), SUCCESS_RESPONSE.getMessage(),
                 UserListResponse.of(users));
     }
