@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import prography.pingpong.domain.exception.InvalidRequestException;
 import prography.pingpong.domain.user.dto.response.UserResponse;
 import prography.pingpong.domain.user.entity.User;
 import prography.pingpong.domain.user.repository.UserRepository;
@@ -16,6 +17,12 @@ import prography.pingpong.domain.user.repository.UserRepository;
 public class UserGetService {
 
     private final UserRepository userRepository;
+
+    @Transactional
+    public void findActiveUser(int userId) {
+        userRepository.findByIdAndStatus(userId, User.Status.ACTIVE)
+                .orElseThrow(InvalidRequestException::new);
+    }
 
     @Transactional
     public Page<UserResponse> getAllUsers(int page, int size) {
