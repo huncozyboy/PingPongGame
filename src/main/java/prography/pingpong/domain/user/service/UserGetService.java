@@ -1,6 +1,5 @@
 package prography.pingpong.domain.user.service;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,13 +17,11 @@ public class UserGetService {
 
     private final UserRepository userRepository;
 
-    @Transactional
     public void findActiveUser(int userId) {
         userRepository.findByIdAndStatus(userId, User.Status.ACTIVE)
                 .orElseThrow(InvalidRequestException::new);
     }
 
-    @Transactional
     public Page<UserResponse> getAllUsers(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "id"));
         Page<User> users = userRepository.findAll(pageable);
