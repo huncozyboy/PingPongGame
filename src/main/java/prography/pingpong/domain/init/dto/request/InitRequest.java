@@ -1,7 +1,9 @@
 package prography.pingpong.domain.init.dto.request;
 
+import jakarta.validation.constraints.NotNull;
+
 public record InitRequest(
-        int seed,
-        int quantity
+        @NotNull int seed,
+        @NotNull int quantity
 ) {
 }
