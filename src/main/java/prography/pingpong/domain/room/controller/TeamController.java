@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import prography.pingpong.domain.room.dto.request.RoomRequest;
+import prography.pingpong.domain.room.dto.request.RoomRequestDto.UserId;
 import prography.pingpong.domain.room.service.TeamChangeService;
 import prography.pingpong.global.common.response.ApiResponse;
 
@@ -22,7 +22,7 @@ public class TeamController {
 
     @Operation(summary = "팀 변경")
     @PutMapping("/{roomId}")
-    public ApiResponse<Void> changeTeam(@PathVariable int roomId, @RequestBody RoomRequest request) {
+    public ApiResponse<Void> changeTeam(@PathVariable int roomId, @RequestBody UserId request) {
         teamChangeService.teamChange(request, roomId);
         return ApiResponse.response(SUCCESS_RESPONSE.getCode(), SUCCESS_RESPONSE.getMessage());
     }
