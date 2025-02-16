@@ -13,6 +13,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import prography.pingpong.domain.userRoom.entity.UserRoom;
+import prography.pingpong.domain.userRoom.repository.UserRoomRepository;
 
 @Getter
 @Entity
@@ -64,5 +66,21 @@ public class Room {
                 .createDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
                 .build();
+    }
+
+    public boolean isFull(UserRoomRepository userRoomRepository) {
+        int currentCount = userRoomRepository.countByRoomId(this.id);
+        return (this.roomType == RoomType.SINGLE && currentCount >= 2)
+                || (this.roomType == RoomType.DOUBLE && currentCount >= 4);
+    }
+
+    public UserRoom.Team assignTeam(UserRoomRepository userRoomRepository) {
+        int currentCount = userRoomRepository.countByRoomId(this.id);
+
+        if (this.roomType == RoomType.SINGLE) {
+            return UserRoom.Team.BLUE;
+        }
+
+        return currentCount == 1 ? UserRoom.Team.RED : UserRoom.Team.BLUE;
     }
 }
