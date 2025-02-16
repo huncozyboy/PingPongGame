@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import prography.pingpong.domain.room.dto.request.RoomAttentionRequest;
 import prography.pingpong.domain.room.dto.request.RoomCreateRequest;
+import prography.pingpong.domain.room.dto.request.RoomOutRequest;
 import prography.pingpong.domain.room.dto.response.RoomDetailResponse;
 import prography.pingpong.domain.room.dto.response.RoomListResponse;
 import prography.pingpong.domain.room.dto.response.RoomResponse;
 import prography.pingpong.domain.room.service.RoomAttentionService;
 import prography.pingpong.domain.room.service.RoomCreateService;
 import prography.pingpong.domain.room.service.RoomGetService;
+import prography.pingpong.domain.room.service.RoomOutService;
 import prography.pingpong.global.common.response.ApiResponse;
 
 @RestController
@@ -30,6 +32,7 @@ public class RoomController {
     private final RoomCreateService roomCreateService;
     private final RoomGetService roomGetService;
     private final RoomAttentionService roomAttentionService;
+    private final RoomOutService roomOutService;
 
     @Operation(summary = "방 생성")
     @PostMapping
@@ -57,6 +60,13 @@ public class RoomController {
     @PostMapping("/attention/{roomId}")
     public ApiResponse<Void> attentionRoom(@PathVariable int roomId, @RequestBody RoomAttentionRequest request) {
         roomAttentionService.attentionRoom(request, roomId);
+        return ApiResponse.response(SUCCESS_RESPONSE.getCode(), SUCCESS_RESPONSE.getMessage());
+    }
+
+    @Operation(summary = "방 나가기")
+    @PostMapping("/out/{roomId}")
+    public ApiResponse<Void> outRoom(@PathVariable int roomId, @RequestBody RoomOutRequest request) {
+        roomOutService.outRoom(request, roomId);
         return ApiResponse.response(SUCCESS_RESPONSE.getCode(), SUCCESS_RESPONSE.getMessage());
     }
 }
