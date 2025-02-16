@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import prography.pingpong.domain.exception.InvalidRequestException;
-import prography.pingpong.domain.room.dto.request.RoomAttentionRequest;
+import prography.pingpong.domain.room.dto.request.RoomRequest;
 import prography.pingpong.domain.room.entity.Room;
 import prography.pingpong.domain.room.repository.RoomRepository;
 import prography.pingpong.domain.user.service.UserGetService;
@@ -22,7 +22,7 @@ public class RoomAttentionService {
     private final UserRoomRepository userRoomRepository;
 
     @Transactional
-    public void attentionRoom(RoomAttentionRequest request, int roomId) {
+    public void attentionRoom(RoomRequest request, int roomId) {
 
         Room room = roomRepository.findByIdAndStatus(roomId, Room.Status.WAIT)
                 .orElseThrow(InvalidRequestException::new);
