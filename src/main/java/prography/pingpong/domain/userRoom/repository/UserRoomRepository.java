@@ -8,4 +8,6 @@ import prography.pingpong.domain.userRoom.entity.UserRoom;
 public interface UserRoomRepository extends JpaRepository<UserRoom, Integer> {
 
     boolean existsByUserId(Integer userId);
+
+    int countByRoomId(Integer roomId);
 }
