@@ -92,4 +92,9 @@ public class Room {
         this.status = Status.FINISH;
         this.updateDate = LocalDateTime.now();
     }
+
+    public void progress() {
+        this.status = Status.PROGRESS;
+        this.updateDate = LocalDateTime.now();
+    }
 }
