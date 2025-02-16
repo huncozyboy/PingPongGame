@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import prography.pingpong.domain.room.dto.request.RoomAttentionRequest;
 import prography.pingpong.domain.room.dto.request.RoomCreateRequest;
 import prography.pingpong.domain.room.dto.response.RoomDetailResponse;
 import prography.pingpong.domain.room.dto.response.RoomListResponse;
 import prography.pingpong.domain.room.dto.response.RoomResponse;
+import prography.pingpong.domain.room.service.RoomAttentionService;
 import prography.pingpong.domain.room.service.RoomCreateService;
 import prography.pingpong.domain.room.service.RoomGetService;
 import prography.pingpong.global.common.response.ApiResponse;
@@ -27,6 +29,7 @@ public class RoomController {
 
     private final RoomCreateService roomCreateService;
     private final RoomGetService roomGetService;
+    private final RoomAttentionService roomAttentionService;
 
     @Operation(summary = "방 생성")
     @PostMapping
@@ -48,5 +51,12 @@ public class RoomController {
     public ApiResponse<RoomDetailResponse> getRoomDetail(@PathVariable int roomId) {
         RoomDetailResponse roomDetail = roomGetService.getRoomDetail(roomId);
         return ApiResponse.response(SUCCESS_RESPONSE.getCode(), SUCCESS_RESPONSE.getMessage(), roomDetail);
+    }
+
+    @Operation(summary = "방 참가")
+    @PostMapping("/attention/{roomId}")
+    public ApiResponse<Void> attentionRoom(@PathVariable int roomId, @RequestBody RoomAttentionRequest request) {
+        roomAttentionService.attentionRoom(request, roomId);
+        return ApiResponse.response(SUCCESS_RESPONSE.getCode(), SUCCESS_RESPONSE.getMessage());
     }
 }
