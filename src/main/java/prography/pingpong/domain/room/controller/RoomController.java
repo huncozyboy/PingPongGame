@@ -21,6 +21,7 @@ import prography.pingpong.domain.room.service.RoomAttentionService;
 import prography.pingpong.domain.room.service.RoomCreateService;
 import prography.pingpong.domain.room.service.RoomGetService;
 import prography.pingpong.domain.room.service.RoomOutService;
+import prography.pingpong.domain.room.service.RoomStartService;
 import prography.pingpong.global.common.response.ApiResponse;
 
 @RestController
@@ -32,6 +33,7 @@ public class RoomController {
     private final RoomGetService roomGetService;
     private final RoomAttentionService roomAttentionService;
     private final RoomOutService roomOutService;
+    private final RoomStartService roomStartService;
 
     @Operation(summary = "방 생성")
     @PostMapping
@@ -66,6 +68,13 @@ public class RoomController {
     @PostMapping("/out/{roomId}")
     public ApiResponse<Void> outRoom(@PathVariable int roomId, @RequestBody RoomRequest request) {
         roomOutService.outRoom(request, roomId);
+        return ApiResponse.response(SUCCESS_RESPONSE.getCode(), SUCCESS_RESPONSE.getMessage());
+    }
+
+    @Operation(summary = "게임 시작")
+    @PostMapping("/start/{roomId}")
+    public ApiResponse<Void> startRoom(@PathVariable int roomId, @RequestBody RoomRequest request) {
+        roomStartService.startRoom(request, roomId);
         return ApiResponse.response(SUCCESS_RESPONSE.getCode(), SUCCESS_RESPONSE.getMessage());
     }
 }
