@@ -7,5 +7,8 @@ import prography.pingpong.domain.room.entity.Room;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Integer> {
+
     Optional<Room> findByIdAndStatus(Integer roomId, Room.Status status);
+
+    boolean existsByIdAndHost(Integer id, Integer host);
 }
