@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import prography.pingpong.domain.room.entity.Room;
+import prography.pingpong.domain.userRoom.repository.UserRoomRepository;
 
 @Getter
 @Entity
@@ -44,5 +46,20 @@ public class UserRoom {
                 .roomId(roomId)
                 .team(team)
                 .build();
+    }
+
+    public static Team getOppositeTeam(Team currentTeam) {
+        return currentTeam == Team.RED ? Team.BLUE : Team.RED;
+    }
+
+    public static boolean isTeamFull(UserRoomRepository userRoomRepository, Integer roomId, Team team,
+                                     Room.RoomType roomType) {
+        int currentTeamCount = userRoomRepository.countByRoomIdAndTeam(roomId, team);
+        int maxTeamSize = roomType == Room.RoomType.SINGLE ? 1 : 2;
+        return currentTeamCount >= maxTeamSize;
+    }
+
+    public void changeTeam(Team newTeam) {
+        this.team = newTeam;
     }
 }
