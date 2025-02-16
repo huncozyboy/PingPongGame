@@ -84,10 +84,6 @@ public class Room {
         return currentCount == 1 ? UserRoom.Team.RED : UserRoom.Team.BLUE;
     }
 
-    public boolean isInProgressOrFinished() {
-        return this.status == Status.PROGRESS || this.status == Status.FINISH;
-    }
-
     public void finish() {
         this.status = Status.FINISH;
         this.updateDate = LocalDateTime.now();
