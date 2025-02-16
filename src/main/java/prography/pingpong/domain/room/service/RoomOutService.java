@@ -30,7 +30,8 @@ public class RoomOutService {
             throw new InvalidRequestException();
         }
 
-        if (room.isInProgressOrFinished()) {
+        if (roomRepository.findByIdAndStatus(roomId, Room.Status.PROGRESS).isPresent() ||
+                roomRepository.findByIdAndStatus(roomId, Room.Status.FINISH).isPresent()) {
             throw new InvalidRequestException();
         }
 
