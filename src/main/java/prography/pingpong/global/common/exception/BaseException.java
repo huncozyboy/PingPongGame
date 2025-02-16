@@ -8,4 +8,8 @@ public class BaseException extends RuntimeException {
         super(message);
         this.errorCode = errorCode;
     }
+
+    public int getErrorCode() {
+        return errorCode;
+    }
 }

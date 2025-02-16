@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorMessage {
 
-    INVALID_REQUEST(201, "잘못된 요청입니다.");
+    INVALID_REQUEST(201, "불가능한 요청입니다.");
 
     private final int code;
     private final String message;
