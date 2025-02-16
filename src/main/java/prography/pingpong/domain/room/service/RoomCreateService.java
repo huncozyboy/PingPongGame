@@ -8,6 +8,8 @@ import prography.pingpong.domain.room.dto.request.RoomCreateRequest;
 import prography.pingpong.domain.room.entity.Room;
 import prography.pingpong.domain.room.repository.RoomRepository;
 import prography.pingpong.domain.user.service.UserGetService;
+import prography.pingpong.domain.userRoom.entity.UserRoom;
+import prography.pingpong.domain.userRoom.repository.UserRoomRepository;
 import prography.pingpong.domain.userRoom.service.UserRoomService;
 
 @Service
@@ -17,6 +19,7 @@ public class RoomCreateService {
     private final UserGetService userGetService;
     private final UserRoomService userRoomService;
     private final RoomRepository roomRepository;
+    private final UserRoomRepository userRoomRepository;
 
     @Transactional
     public void createRoom(RoomCreateRequest request) {
@@ -28,7 +31,9 @@ public class RoomCreateService {
         }
 
         Room room = Room.create(request.title(), request.userId(), request.roomType());
-
         roomRepository.save(room);
+
+        UserRoom userRoom = UserRoom.create(request.userId(), room.getId(), UserRoom.Team.RED);
+        userRoomRepository.save(userRoom);
     }
 }
