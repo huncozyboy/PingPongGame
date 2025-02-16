@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import prography.pingpong.domain.exception.InvalidRequestException;
-import prography.pingpong.domain.room.dto.request.RoomRequest;
+import prography.pingpong.domain.room.dto.request.RoomRequestDto;
 import prography.pingpong.domain.room.entity.Room;
 import prography.pingpong.domain.room.repository.RoomRepository;
 import prography.pingpong.domain.user.service.UserGetService;
@@ -21,7 +21,7 @@ public class RoomStartService {
     private final UserRoomRepository userRoomRepository;
 
     @Transactional
-    public void startRoom(RoomRequest request, int roomId) {
+    public void startRoom(RoomRequestDto.UserId request, int roomId) {
 
         userGetService.findActiveUser(request.userId());
 

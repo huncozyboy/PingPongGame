@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import prography.pingpong.domain.room.dto.request.RoomCreateRequest;
-import prography.pingpong.domain.room.dto.request.RoomRequest;
+import prography.pingpong.domain.room.dto.request.RoomRequestDto;
 import prography.pingpong.domain.room.dto.response.RoomDetailResponse;
 import prography.pingpong.domain.room.dto.response.RoomListResponse;
 import prography.pingpong.domain.room.dto.response.RoomResponse;
@@ -37,7 +36,7 @@ public class RoomController {
 
     @Operation(summary = "방 생성")
     @PostMapping
-    public ApiResponse<Void> createRooms(@RequestBody RoomCreateRequest request) {
+    public ApiResponse<Void> createRooms(@RequestBody RoomRequestDto.RoomCreate request) {
         roomCreateService.createRoom(request);
         return ApiResponse.response(SUCCESS_RESPONSE.getCode(), SUCCESS_RESPONSE.getMessage());
     }
@@ -59,21 +58,21 @@ public class RoomController {
 
     @Operation(summary = "방 참가")
     @PostMapping("/attention/{roomId}")
-    public ApiResponse<Void> attentionRoom(@PathVariable int roomId, @RequestBody RoomRequest request) {
+    public ApiResponse<Void> attentionRoom(@PathVariable int roomId, @RequestBody RoomRequestDto.UserId request) {
         roomAttentionService.attentionRoom(request, roomId);
         return ApiResponse.response(SUCCESS_RESPONSE.getCode(), SUCCESS_RESPONSE.getMessage());
     }
 
     @Operation(summary = "방 나가기")
     @PostMapping("/out/{roomId}")
-    public ApiResponse<Void> outRoom(@PathVariable int roomId, @RequestBody RoomRequest request) {
+    public ApiResponse<Void> outRoom(@PathVariable int roomId, @RequestBody RoomRequestDto.UserId request) {
         roomOutService.outRoom(request, roomId);
         return ApiResponse.response(SUCCESS_RESPONSE.getCode(), SUCCESS_RESPONSE.getMessage());
     }
 
     @Operation(summary = "게임 시작")
     @PostMapping("/start/{roomId}")
-    public ApiResponse<Void> startRoom(@PathVariable int roomId, @RequestBody RoomRequest request) {
+    public ApiResponse<Void> startRoom(@PathVariable int roomId, @RequestBody RoomRequestDto.UserId request) {
         roomStartService.startRoom(request, roomId);
         return ApiResponse.response(SUCCESS_RESPONSE.getCode(), SUCCESS_RESPONSE.getMessage());
     }
